@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="static/css/base.css">
+
+        <script src="static/js/pentarena.js"></script>
+        <script src="static/js/vue.js"></script>
+        <script>
+            let health = 0;
+            let player = generatePlayerCharacter() || {};
+        </script>
+        <title>Pentarena</title>
+    </head>
+    <body>
+        <div id="app">
+            <div class="char-sheet">
+                <h1>{{ player.name }}</h1>
+                <div>
+                    <div>level {{ player.level}} {{ player.race }} {{ player.class }}</div>
+                    <div>hitpoints: {{ playerHealth }}</div>
+                    <div>experence: {{ player.experience }}</div>
+                </div>
+            </div>
+            <div class="actions">
+                <button @click="newBattle()">Start Battle</button>
+            </div>
+        </div>
+        <div class="console">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            test
+        </div>
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    player: player,
+                },
+                methods: {
+                    getHealth: function() {
+                        return player.hitpoints || health
+                    },
+                    newBattle: function() {
+                        let opp = createOpponent();
+                        new Battle([player, opp]);
+                    }
+                },
+                computed: {
+                    playerHealth: function() {
+                        return player.hitpoints;
+                    }
+                }
+            });
+
+        </script>
+    </body>
+</html>
