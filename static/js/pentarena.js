@@ -109,8 +109,21 @@ const fourSidedDie = new Dice(4);
 const sixSidedDie = new Dice(6);
 const hundredDie = new Dice(100);
 
-class Item {
+class Restorable {
+    constructor(str, kwargs={}) {}
+
+    restore(jsonString) {
+        let obj = JSON.parse(jsonString);
+        for (let key in obj) {
+            if (obj.hasOwnProperty('restore')) obj.restore(obj[key])
+            if (obj.hasOwnProperty(key)) this[key] = obj[key];
+        }
+    }
+}
+
+class Item extends Restorable {
     constructor(name, kwargs={}) {
+        super(name, kwargs);
         this.name=name;
         this.weight=kwargs.weight || 0;
         this.consumable=kwargs.consumable || false;
@@ -241,8 +254,12 @@ class LivingThing {
 }
 
 class PlayerCharacter extends LivingThing {
-    constructor(race, kwargs={}) {
+    constructor(race, kwargs= {}) {
         super(race, kwargs);
+        if (kwargs.savedCharacter) {
+            this.restoreCharFromString(kwargs.savedCharacter);
+            return;
+        }
         if (!this.race) this.race = races.human;
         this.isNPC = kwargs.isNPC || false;
         if (!this.isNPC) this.level = 1;
@@ -294,6 +311,10 @@ class PlayerCharacter extends LivingThing {
         }
 
         return availableClasses;
+    }
+
+    restoreCharacterFromString(charString) {
+
     }
 }
 

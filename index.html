@@ -14,31 +14,45 @@
     </head>
     <body>
         <div id="app">
-            <div class="char-sheet">
-                <h1>{{ player.name }}</h1>
-                <div>
-                    <div>level {{ player.level}} {{ player.race }} {{ player.class }}</div>
+            <h1>{{ player.name }}</h1>
+            <div class="sheet">
+                <div class="stats">
+                    <div>
+                        level {{ player.level}} {{ player.race }} {{ player.class }}
+                        <span>
+                            <button id="expandActions" class="expand-butt right">...</button>
+                        </span>
+                    </div>
                     <div>hitpoints: {{ playerHealth }}</div>
                     <div>experence: {{ player.experience }}</div>
+                    <div class="attributes">
+                        might: {{ player.might}}  <br />
+                        endurance: {{ player.endurance }} <br />
+                        intellect: {{ player.intellect }} <br />
+                        wisdom: {{ player.wisdom }} <br />
+                        dexterity: {{ player.dexterity }}<br />
+                    </div>
+                    <div class="char-actions">
+                        <button @click="newCharacter()">Reroll</button>
+                        <button @click="">Save</button>
+                        <button @click="">Load</button>
+                        <button @click="newBattle()">Battle</button>
+                    </div>
+                </div>
+                <div class="battle">
+                    <h3>Battle</h3>
+                    <div class="enemy">
+
+                    </div>
+                    <div class="battle-actions">
+
+                    </div>
                 </div>
             </div>
-            <div class="actions">
-                <button @click="newBattle()">Start Battle</button>
-            </div>
+
         </div>
-        <div class="console">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            test
+        <div id="messageArea">
+        hello
         </div>
         <script>
             new Vue({
@@ -53,6 +67,9 @@
                     newBattle: function() {
                         let opp = createOpponent();
                         new Battle([player, opp]);
+                    },
+                    newCharacter: function() {
+                        this.player = generatePlayerCharacter();
                     }
                 },
                 computed: {
@@ -63,5 +80,6 @@
             });
 
         </script>
+        <script src="static/js/interface.js"></script>
     </body>
 </html>

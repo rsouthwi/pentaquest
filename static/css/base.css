@@ -1,7 +1,42 @@
 div {
     border: 1px solid red;
 }
-.console {
-    height: 100px;
+
+.sheet {
+    display: flex;
+}
+.expand-butt {
+    padding: 0 0 13px;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+
+    text-align: center;
+    cursor: pointer;
+}
+/*.stats {*/
+/*    !*flex: 0;*!*/
+/*    width: 25%;*/
+/*}*/
+.right {
+    float: right;
+    /*text-align: right;*/
+}
+.char-actions {
+    width: 220px;
+    visibility: hidden;
+}
+
+.char-actions button {
+    cursor: pointer;
+    width: 50px;
+    height: 30px;
+    border-radius: 15px;
+}
+.attributes {
+    text-align: right;
+}
+.messageArea {
+    /*height: 100px;*/
     overflow-y: auto;
 }
