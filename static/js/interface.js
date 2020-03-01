@@ -8,13 +8,10 @@ const toggle = function(elemClass) {
 };
 
 const userTextPropmt = function(message, callBack) {
-    const messageArea = document.getElementById('messageArea');
-
     let interfaceElements = [];
+    const messageArea = document.getElementById('messageArea');
     const hideInterfaceElements = function() {
-        for (let i=0; i<interfaceElements.length; ++i) {
-            interfaceElements[i].parentNode.removeChild(interfaceElements[i])
-        }
+        interfaceElements.forEach(elem => elem.parentNode.removeChild(elem))
     };
     const submitFunction = function(value) {
         // we could handle input errors in here
@@ -45,12 +42,9 @@ const userTextPropmt = function(message, callBack) {
 
 const userOptionsPrompt = function(message, options, callBack) {
     const messageArea = document.getElementById('messageArea');
-
     let interfaceElements = [];
     const hideInterfaceElements = function() {
-        for (let i=0; i<interfaceElements.length; ++i) {
-            interfaceElements[i].parentNode.removeChild(interfaceElements[i])
-        }
+        interfaceElements.forEach(elem => elem.parentNode.removeChild(elem))
     };
     const submitFunction = function(value) {
         // we could handle input errors in here
@@ -58,10 +52,33 @@ const userOptionsPrompt = function(message, options, callBack) {
         callBack(value);
     };
 
+    const selectionDiv = document.createElement('div');
+    selectionDiv.id = 'selection';
+
+    for (let optionValue in options) {
+        let optionDiv = document.createElement('div');
+
+        let radioInput = document.createElement('input');
+        let optionText = document.createElement('span');
+        optionText.innerText = options[optionValue];
+        radioInput.type = 'radio';
+        radioInput.name = 'item';
+        radioInput.value = optionValue;
+        radioInput.addEventListener('click', event => {
+            submitFunction(radioInput.value);
+        });
+        optionDiv.appendChild(radioInput);
+        optionDiv.appendChild(optionText);
+        selectionDiv.appendChild(optionDiv);
+    }
+
+    messageArea.innerHTML = message;
+    messageArea.appendChild(selectionDiv);
 };
 
 
-(function() {
+document.addEventListener("DOMContentLoaded", function() {
     const actionsButton = document.getElementById('expandActions');
     actionsButton.addEventListener("click",function() { toggle('char-actions') })
-})();
+});
+

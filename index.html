@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="static/css/base.css">
 
+        <script src="static/js/interface.js"></script>
         <script src="static/js/pentarena.js"></script>
         <script src="static/js/vue.js"></script>
         <script>
@@ -69,7 +70,8 @@
                         new Battle([player, opp]);
                     },
                     newCharacter: function() {
-                        this.player = generatePlayerCharacter();
+                        selectPlayerRace();
+                        // this.player = generatePlayerCharacter();
                     }
                 },
                 computed: {
@@ -80,6 +82,5 @@
             });
 
         </script>
-        <script src="static/js/interface.js"></script>
     </body>
 </html>

@@ -273,6 +273,7 @@ class PlayerCharacter extends LivingThing {
     }
 
     classAvailability() {
+        // returns array of Class names
         // you can be any class with a stat 15 or above in inclination
         // or the highest stat
         // if 3 or more stats are 15 or above, you can be a 'hero' class
@@ -519,3 +520,45 @@ const attack = function(attacker, defender) {
 };
 
 
+
+
+
+const buildPlayerCharacter = function(raceSelection) {
+    player = new PlayerCharacter(races[raceSelection]);
+    selectPlayerClass(player);
+};
+
+const selectPlayerRace = function() {
+    const message = "Select a race:";
+    const raceOptions = Object.keys(races).reduce(
+        (obj, race) => {
+            let raceCapitalized = race.charAt(0).toUpperCase() + race.slice(1);
+            obj[race] = raceCapitalized;
+            return obj;
+        }, {}
+    );
+
+    userOptionsPrompt(message, raceOptions, buildPlayerCharacter);
+};
+
+const setPlayerName = function(playerName) {
+    if (!playerName) {
+        player = undefined;
+        return;
+    }
+    player.name = playerName;
+};
+
+const selectPlayerClass = function(player) {
+    const message = "Select from available classes:";
+    const availableClasses = player.classAvailability();
+    const classOptions = availableClasses.reduce(
+        (obj, className) => {
+            let classNameCapitalized = className.charAt(0).toUpperCase() + className.slice(1);
+            obj[className] = classNameCapitalized;
+            return obj;
+        }, {}
+    );
+
+    userOptionsPrompt(message, classOptions, setPlayerName);
+};
